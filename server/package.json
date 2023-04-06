@@ -1,0 +1,14 @@
+{
+  "name": "json-server-job-finder",
+  "description": "Example in memory jon-finder api with json-server",
+  "version": "1.0.0",
+  "main": "index.js",
+  "scripts": {
+    "start": "json-server --watch db.json --no-cors true  --port 9000"
+  },
+  "dependencies": {
+    "json-server": "^0.17.1"
+  },
+  "keywords": [],
+  "author": "Mahfuzul Islam"
+}
