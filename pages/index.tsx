@@ -4,6 +4,8 @@ import styles from "@/styles/Home.module.css";
 import Navbar from "@/components/Navbar";
 import Sidebar from "@/components/Sidebar";
 import JobList from "@/components/JobList";
+import CreateJob from "@/components/CreateJob";
+import EditJob from "@/components/EditJob";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -26,7 +28,7 @@ export default function Home() {
       <main>
         <Navbar />
         <Sidebar />
-        <JobList />
+        <EditJob />
       </main>
     </>
   );
