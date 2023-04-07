@@ -1,4 +1,6 @@
+import { removeJob } from "@/redux/JobSlice";
 import { IJobType } from "@/redux/JobType";
+import { useAppDispatch } from "@/redux/Store";
 import React from "react";
 
 interface props {
@@ -6,7 +8,10 @@ interface props {
 }
 const Job = ({ job }: props) => {
   const { title, type, salary, deadline, id } = job;
-
+  const dispatch = useAppDispatch();
+  const handleDelete = () => {
+    dispatch(removeJob(id));
+  };
   let style;
   if (type === "Internship") style = "#FF5757";
   else if (type === "Full Time") style = "#FF8A00";
@@ -43,7 +48,11 @@ const Job = ({ job }: props) => {
           </span>
 
           <span className="sm:ml-3">
-            <button type="button" className="lws-delete btn btn-danger ">
+            <button
+              type="button"
+              className="lws-delete btn btn-danger "
+              onClick={handleDelete}
+            >
               <i className="fa-solid fa-trash text-gray-300 -ml-1 mr-2"></i>
               Delete
             </button>

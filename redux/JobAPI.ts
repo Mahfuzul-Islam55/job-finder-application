@@ -17,3 +17,8 @@ export const addNewJob = async (data: ICreateJobType) => {
   const response = await axiosInstance.post("/jobs", data);
   return response.data;
 };
+
+export const deleteJob = async (id: number) => {
+  const response = await axiosInstance.delete(`/jobs/${id}`);
+  return response.data;
+};
