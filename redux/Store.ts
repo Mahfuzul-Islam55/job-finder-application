@@ -1,8 +1,11 @@
 import { configureStore } from "@reduxjs/toolkit";
 import { TypedUseSelectorHook, useDispatch, useSelector } from "react-redux";
+import JobSlice from "./JobSlice";
 
 const store = configureStore({
-  reducer: {},
+  reducer: {
+    job: JobSlice,
+  },
 });
 
 export type RootState = ReturnType<typeof store.getState>;

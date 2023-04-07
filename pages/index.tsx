@@ -28,7 +28,7 @@ export default function Home() {
       <main>
         <Navbar />
         <Sidebar />
-        <EditJob />
+        <JobList />
       </main>
     </>
   );
