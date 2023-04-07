@@ -9,10 +9,13 @@ const initialState: IInitialState = {
   error: "",
 };
 
-export const fetchAllJob = createAsyncThunk("jobs/fetchAllJob", async () => {
-  const response = await getAllJob();
-  return response;
-});
+export const fetchAllJob = createAsyncThunk(
+  "jobs/fetchAllJob",
+  async (type?: string) => {
+    const response = await getAllJob(type);
+    return response;
+  }
+);
 
 const jobSlice = createSlice({
   name: "job",

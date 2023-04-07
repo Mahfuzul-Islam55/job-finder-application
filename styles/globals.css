@@ -861,6 +861,7 @@ body {
   font-weight: 500;
   --tw-text-opacity: 1;
   color: rgb(148 163 184 / var(--tw-text-opacity));
+  cursor: pointer;
 }
 
 .main-menu:hover {
@@ -890,6 +891,7 @@ body {
   --tw-text-opacity: 1;
   color: rgb(148 163 184 / var(--tw-text-opacity));
   margin-right: 1px;
+  cursor: pointer;
 }
 
 .sub-menu:hover {
