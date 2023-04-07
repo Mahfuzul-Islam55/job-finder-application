@@ -26,8 +26,6 @@ export default function Home() {
         />
       </Head>
       <main>
-        <Navbar />
-        <Sidebar />
         <JobList />
       </main>
     </>

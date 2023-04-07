@@ -12,3 +12,11 @@ export interface IInitialState {
   isError: boolean;
   error: string | undefined;
 }
+
+export interface ICreateJobType {
+  title: string;
+  type: string;
+  salary: string;
+  deadline: string;
+  id?: number;
+}

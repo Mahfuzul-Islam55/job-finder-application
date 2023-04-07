@@ -1,4 +1,5 @@
 import axiosInstance from "./Axios";
+import { ICreateJobType } from "./JobType";
 
 export const getAllJob = async (type?: string) => {
   let queryString = "";
@@ -9,5 +10,10 @@ export const getAllJob = async (type?: string) => {
   }
   const response = await axiosInstance.get(`/jobs`);
 
+  return response.data;
+};
+
+export const addNewJob = async (data: ICreateJobType) => {
+  const response = await axiosInstance.post("/jobs", data);
   return response.data;
 };

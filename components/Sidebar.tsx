@@ -1,14 +1,18 @@
 import { fetchAllJob } from "@/redux/JobSlice";
 import { useAppDispatch } from "@/redux/Store";
+import Link from "next/link";
+import { useRouter } from "next/router";
 import React from "react";
 
 const Sidebar = () => {
   const dispatch = useAppDispatch();
+  const router = useRouter();
   const handleClick = (type?: string) => {
     dispatch(fetchAllJob(type));
   };
   const handleAllJob = () => {
     dispatch(fetchAllJob());
+    if (router.route !== "/") router.push("/");
   };
   return (
     <div className="sidebar">
@@ -45,10 +49,14 @@ const Sidebar = () => {
             </ul>
           </li>
           <li>
-            <a href="/jobs" className="main-menu" id="lws-addJob-menu">
+            <Link
+              href="/CreateJobPage"
+              className="main-menu"
+              id="lws-addJob-menu"
+            >
               <i className="fa-solid fa-file-circle-plus"></i>
               <span>Add NewJob</span>
-            </a>
+            </Link>
           </li>
         </ul>
       </nav>

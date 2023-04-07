@@ -1,6 +1,28 @@
-import React from "react";
+import { createNewJob } from "@/redux/JobSlice";
+import { useAppDispatch } from "@/redux/Store";
+import { useRouter } from "next/router";
+import React, { useState } from "react";
 
 const CreateJob = () => {
+  const [job, setJob] = useState({
+    title: "",
+    type: "",
+    salary: "",
+    deadline: "",
+  });
+  const dispatch = useAppDispatch();
+  const router = useRouter();
+  const handleChange = (
+    e: React.FormEvent<HTMLInputElement | HTMLSelectElement>
+  ) => {
+    setJob({ ...job, [e.currentTarget.name]: e.currentTarget.value });
+  };
+
+  const handleSubmit = (e: React.SyntheticEvent) => {
+    e.preventDefault();
+    dispatch(createNewJob(job));
+    router.push("/");
+  };
   return (
     <div className="max-w-[90rem] mx-auto px-4 sm:px-6 md:px-8">
       <div className="lg:pl-[14rem] mt-[5.8125rem]">
@@ -8,7 +30,7 @@ const CreateJob = () => {
           <h1 className="mb-10 text-center lws-section-title">Add New Job</h1>
 
           <div className="max-w-3xl mx-auto">
-            <form className="space-y-6">
+            <form className="space-y-6" onSubmit={handleSubmit}>
               <div className="fieldContainer">
                 <label
                   htmlFor="lws-JobTitle"
@@ -16,7 +38,12 @@ const CreateJob = () => {
                 >
                   Job Title
                 </label>
-                <select id="lws-JobTitle" name="lwsJobTitle" required>
+                <select
+                  id="lws-JobTitle"
+                  name="title"
+                  required
+                  onChange={handleChange}
+                >
                   <option value="" hidden selected>
                     Select Job
                   </option>
@@ -39,7 +66,12 @@ const CreateJob = () => {
 
               <div className="fieldContainer">
                 <label htmlFor="lws-JobType">Job Type</label>
-                <select id="lws-JobType" name="lwsJobType" required>
+                <select
+                  id="lws-JobType"
+                  name="type"
+                  required
+                  onChange={handleChange}
+                >
                   <option value="" hidden selected>
                     Select Job Type
                   </option>
@@ -55,11 +87,12 @@ const CreateJob = () => {
                   <span className="input-tag">BDT</span>
                   <input
                     type="number"
-                    name="lwsJobSalary"
+                    name="salary"
                     id="lws-JobSalary"
                     required
                     className="!rounded-l-none !border-0"
                     placeholder="20,00,000"
+                    onChange={handleChange}
                   />
                 </div>
               </div>
@@ -68,9 +101,10 @@ const CreateJob = () => {
                 <label htmlFor="lws-JobDeadline">Deadline</label>
                 <input
                   type="date"
-                  name="lwsJobDeadline"
+                  name="deadline"
                   id="lws-JobDeadline"
                   required
+                  onChange={handleChange}
                 />
               </div>
 
