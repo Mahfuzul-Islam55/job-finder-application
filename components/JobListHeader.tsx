@@ -1,9 +1,15 @@
-import { fetchAllJob, searchAction } from "@/redux/JobSlice";
+import {
+  fetchAllJob,
+  filterDecrement,
+  filterIncrement,
+  searchAction,
+} from "@/redux/JobSlice";
 import { useAppDispatch } from "@/redux/Store";
 import React, { useState, useEffect } from "react";
 
 const JobListHeader = () => {
   const [search, setSearch] = useState<string>("");
+  const [filter, setFilter] = useState<string>("");
   const [debounced, setDebounce] = useState<string>(search);
   const dispatch = useAppDispatch();
 
@@ -28,6 +34,14 @@ const JobListHeader = () => {
     e.preventDefault();
     dispatch(searchAction(search));
   };
+  const handleFilter = (e: React.FormEvent<HTMLSelectElement>) => {
+    console.log(e.currentTarget.value);
+    if (e.currentTarget.value === "Salary (Low to High)")
+      dispatch(filterIncrement());
+    else if (e.currentTarget.value === "Salary (High to Low)")
+      dispatch(filterDecrement());
+    else dispatch(fetchAllJob());
+  };
   return (
     <div className="md:flex space-y-2 md:space-y-0 justify-between mb-10 ">
       <h1 className="lws-section-title">All Available Jobs</h1>
@@ -49,6 +63,7 @@ const JobListHeader = () => {
           name="sort"
           autoComplete="sort"
           className="flex-1"
+          onChange={handleFilter}
         >
           <option>Default</option>
           <option>Salary (Low to High)</option>

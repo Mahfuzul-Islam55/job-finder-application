@@ -55,13 +55,6 @@
       "salary": "12345",
       "deadline": "2023-04-01",
       "id": 9
-    },
-    {
-      "title": "Software Engineer",
-      "type": "Full Time",
-      "salary": "111222333",
-      "deadline": "2023-04-01",
-      "id": 10
     }
   ]
 }

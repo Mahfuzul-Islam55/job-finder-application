@@ -38,10 +38,15 @@ const jobSlice = createSlice({
   initialState: initialState,
   reducers: {
     searchAction: (state, action) => {
-      console.log(action);
       state.allJob = state.allJob.filter((job) =>
         job.title.toLowerCase().includes(action.payload)
       );
+    },
+    filterIncrement: (state) => {
+      state.allJob = state.allJob.sort((a, b) => (a.salary > b.salary ? 1 : 0));
+    },
+    filterDecrement: (state) => {
+      state.allJob = state.allJob.sort((a, b) => (a.salary < b.salary ? 1 : 0));
     },
   },
   extraReducers: (builder) => {
@@ -90,4 +95,5 @@ const jobSlice = createSlice({
 });
 
 export default jobSlice.reducer;
-export const { searchAction } = jobSlice.actions;
+export const { searchAction, filterDecrement, filterIncrement } =
+  jobSlice.actions;
