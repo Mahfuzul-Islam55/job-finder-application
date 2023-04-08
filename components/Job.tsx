@@ -1,6 +1,7 @@
-import { removeJob } from "@/redux/JobSlice";
+import { editJobAction, removeJob } from "@/redux/JobSlice";
 import { IJobType } from "@/redux/JobType";
 import { useAppDispatch } from "@/redux/Store";
+import Link from "next/link";
 import React from "react";
 
 interface props {
@@ -12,6 +13,10 @@ const Job = ({ job }: props) => {
   const handleDelete = () => {
     dispatch(removeJob(id));
   };
+  const handleEdit = () => {
+    dispatch(editJobAction(job));
+  };
+
   let style;
   if (type === "Internship") style = "#FF5757";
   else if (type === "Full Time") style = "#FF8A00";
@@ -41,10 +46,16 @@ const Job = ({ job }: props) => {
         </div>
         <div className="mt-5 flex lg:mt-0 lg:ml-4">
           <span className="hidden sm:block">
-            <button type="button" className="lws-edit btn btn-primary">
-              <i className="fa-solid fa-pen text-gray-300 -ml-1 mr-2"></i>
-              Edit
-            </button>
+            <Link href={`editJob/${id}`}>
+              <button
+                type="button"
+                className="lws-edit btn btn-primary"
+                onClick={handleEdit}
+              >
+                <i className="fa-solid fa-pen text-gray-300 -ml-1 mr-2"></i>
+                Edit
+              </button>
+            </Link>
           </span>
 
           <span className="sm:ml-3">

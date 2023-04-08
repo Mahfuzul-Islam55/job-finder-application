@@ -11,6 +11,7 @@ export interface IInitialState {
   isLoading: boolean;
   isError: boolean;
   error: string | undefined;
+  editJob?: IEditJobType;
 }
 
 export interface ICreateJobType {
@@ -18,5 +19,13 @@ export interface ICreateJobType {
   type: string;
   salary: string;
   deadline: string;
+  id?: number;
+}
+
+export interface IEditJobType {
+  title?: string;
+  type?: string;
+  salary?: string;
+  deadline?: string;
   id?: number;
 }

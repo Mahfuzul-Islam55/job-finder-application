@@ -1,12 +1,18 @@
 import { createAsyncThunk, createSlice, createStore } from "@reduxjs/toolkit";
-import { ICreateJobType, IInitialState, IJobType } from "./JobType";
-import { addNewJob, deleteJob, getAllJob } from "./JobAPI";
+import {
+  ICreateJobType,
+  IEditJobType,
+  IInitialState,
+  IJobType,
+} from "./JobType";
+import { addNewJob, deleteJob, editJobById, getAllJob } from "./JobAPI";
 
 const initialState: IInitialState = {
   allJob: [],
   isLoading: false,
   isError: false,
   error: "",
+  editJob: {},
 };
 
 export const fetchAllJob = createAsyncThunk(
@@ -32,6 +38,19 @@ export const removeJob = createAsyncThunk(
     return response;
   }
 );
+interface params {
+  id: number;
+  data: IEditJobType;
+}
+
+export const changeJob = createAsyncThunk(
+  "job/editJob",
+  async ({ id, data }: params) => {
+    const response = await editJobById(id, data);
+
+    return response;
+  }
+);
 
 const jobSlice = createSlice({
   name: "job",
@@ -47,6 +66,9 @@ const jobSlice = createSlice({
     },
     filterDecrement: (state) => {
       state.allJob = state.allJob.sort((a, b) => (a.salary < b.salary ? 1 : 0));
+    },
+    editJobAction: (state, action) => {
+      state.editJob = action.payload;
     },
   },
   extraReducers: (builder) => {
@@ -90,10 +112,26 @@ const jobSlice = createSlice({
         state.isError = true;
         state.error = action.error?.message;
         state.isLoading = false;
+      })
+      .addCase(changeJob.pending, (state) => {
+        state.isLoading = true;
+        state.isError = false;
+      })
+      .addCase(changeJob.fulfilled, (state, action) => {
+        (state.isLoading = false), (state.isError = false);
+        const index = state.allJob.findIndex(
+          (job: ICreateJobType) => job.id === action.payload.id
+        );
+        state.allJob[index] = action.payload;
+      })
+      .addCase(changeJob.rejected, (state, action) => {
+        state.isError = true;
+        state.error = action.error?.message;
+        state.isLoading = false;
       });
   },
 });
 
 export default jobSlice.reducer;
-export const { searchAction, filterDecrement, filterIncrement } =
+export const { searchAction, filterDecrement, filterIncrement, editJobAction } =
   jobSlice.actions;

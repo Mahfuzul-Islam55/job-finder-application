@@ -1,5 +1,5 @@
 import axiosInstance from "./Axios";
-import { ICreateJobType } from "./JobType";
+import { ICreateJobType, IEditJobType } from "./JobType";
 
 export const getAllJob = async (type?: string) => {
   let queryString = "";
@@ -20,5 +20,11 @@ export const addNewJob = async (data: ICreateJobType) => {
 
 export const deleteJob = async (id: number) => {
   const response = await axiosInstance.delete(`/jobs/${id}`);
+  return response.data;
+};
+
+export const editJobById = async (id: number, data: IEditJobType) => {
+  const response = await axiosInstance.patch(`/jobs/${id}`, data);
+
   return response.data;
 };
